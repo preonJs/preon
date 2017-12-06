@@ -1,0 +1,47 @@
+{
+  "name": "@preon/preon-core",
+  "version": "0.0.1",
+  "description": "a smaller nodejs micro-service framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/preonJs/preon.git"
+  },
+  "keywords": [
+    "web",
+    "app",
+    "http",
+    "application",
+    "framework",
+    "middleware",
+    "rack",
+    "koa",
+    "express",
+    "node",
+    "node",
+    "server"
+  ],
+  "author": "yeliex <yeliex@yeliex.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/preonJs/preon/issues"
+  },
+  "homepage": "https://github.com/preonJs/preon#readme",
+  "dependencies": {
+    "koa": "^2.4.1",
+    "koa-compose": "^4.0.0",
+    "koa-mount": "^3.0.0",
+    "koa-router": "^7.3.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.42",
+    "@types/koa-compose": "^3.2.2",
+    "@types/koa-mount": "^2.0.19",
+    "@types/koa-router": "^7.0.27",
+    "@types/node": "^8.0.55",
+    "typescript": "^2.6.2"
+  }
+}
