@@ -1,28 +1,31 @@
 {
-  "name": "@preon/preon-core",
+  "name": "preon",
   "version": "0.0.1",
   "description": "a smaller nodejs micro-service framework",
-  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "example/*"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "lerna run build",
+    "clean": "lerna run clean",
+    "test": "lerna run test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/preonJs/preon.git"
   },
   "keywords": [
-    "web",
-    "app",
-    "http",
-    "application",
+    "server",
     "framework",
-    "middleware",
-    "rack",
+    "server-framework",
+    "microservice",
+    "micro-service",
     "koa",
     "express",
-    "node",
-    "node",
-    "server"
+    "eggjs",
+    "docker"
   ],
   "author": "yeliex <yeliex@yeliex.com>",
   "license": "MIT",
@@ -31,17 +34,18 @@
   },
   "homepage": "https://github.com/preonJs/preon#readme",
   "dependencies": {
-    "koa": "^2.4.1",
-    "koa-compose": "^4.0.0",
-    "koa-mount": "^3.0.0",
-    "koa-router": "^7.3.0"
+    "chai": "^4.2.0",
+    "lerna": "^3.20.2",
+    "mocha": "^7.1.1",
+    "ts-node": "^8.8.1",
+    "typescript": "^3.8.3"
   },
   "devDependencies": {
-    "@types/koa": "^2.0.42",
-    "@types/koa-compose": "^3.2.2",
-    "@types/koa-mount": "^2.0.19",
-    "@types/koa-router": "^7.0.27",
-    "@types/node": "^8.0.55",
-    "typescript": "^2.6.2"
+    "@types/chai": "^4.2.11",
+    "@types/debug": "^4.1.5",
+    "@types/lodash": "^4.14.149",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.11.0",
+    "@types/uuid": "^7.0.2"
   }
 }

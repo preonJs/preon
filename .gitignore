@@ -5,8 +5,11 @@ node_modules
 !yarn.lock
 .DS_Store
 .log
-lib/
 npm-debug.log*
 yarn-error.log
 *~
 ~*
+
+*.js
+!*.js.map
+*.d.ts

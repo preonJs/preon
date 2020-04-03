@@ -1,0 +1,44 @@
+{
+  "name": "@preon/core",
+  "version": "0.0.1",
+  "description": "core for preon.js",
+  "typings": "src/index.ts",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "prebuild": "npm run clean",
+    "clean": "rm -rf dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/preonJs/preon.git"
+  },
+  "keywords": [
+    "preon",
+    "microservice",
+    "koa"
+  ],
+  "author": "yeliex <yeliex@yeliex.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/preonJs/preon/issues"
+  },
+  "homepage": "https://github.com/preonJs/preon/packages/core",
+  "dependencies": {
+    "@koa/router": "^8.0.8",
+    "debug": "^4.1.1",
+    "globby": "^11.0.0",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.3.0",
+    "lodash": "^4.17.15",
+    "uuid": "^7.0.3"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.11.3",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa__router": "^8.0.2"
+  },
+  "engines": {
+    "node": ">=12"
+  }
+}

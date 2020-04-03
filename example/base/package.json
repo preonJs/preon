@@ -1,0 +1,24 @@
+{
+  "name": "@preon/example-base",
+  "version": "0.0.1",
+  "description": "a smaller nodejs micro-service framework",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "prebuild": "npm run clean",
+    "clean": "rm -rf dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/preonJs/preon.git"
+  },
+  "author": "yeliex <yeliex@yeliex.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/preonJs/preon/issues"
+  },
+  "homepage": "https://github.com/preonJs/preon",
+  "dependencies": {
+    "preon": "^0.0.1"
+  }
+}

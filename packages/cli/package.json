@@ -1,0 +1,28 @@
+{
+  "name": "@preon/cli",
+  "version": "0.0.1",
+  "description": "cli tool for preon.js",
+  "bin": {
+    "preon": "bin/preon.js"
+  },
+  "scripts": {
+    "start": "tsc",
+    "prebuild": "npm run clean",
+    "clean": "rm -rf dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/preonJs/preon.git"
+  },
+  "keywords": [
+    "preon",
+    "microservice",
+    "koa"
+  ],
+  "author": "yeliex <yeliex@yeliex.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/preonJs/preon/issues"
+  },
+  "homepage": "https://github.com/preonJs/preon/packages/cli"
+}

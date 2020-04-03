@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base",
+  "compileOnSave": true,
+  "compilerOptions": {
+    "sourceRoot": "./src",
+    "baseUrl": "./src",
+    "outDir": "./dist"
+  },
+  "include": [
+    "src",
+    "src/typings"
+  ]
+}
