@@ -1,6 +1,6 @@
 {
   "name": "@preon/cli",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "cli tool for preon.js",
   "main": "index.js",
   "typings": "index.d.ts",
