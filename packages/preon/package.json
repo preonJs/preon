@@ -10,7 +10,8 @@
     "prebuild": "npm run clean",
     "test:type": "tsc --noEmit",
     "test:unit": "mocha --require ../../script/register.js test/**/*.test.ts --bail --check-leaks --full-trace",
-    "test": "npm run test:type && npm run test:unit"
+    "test": "npm run test:type && npm run test:unit",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",

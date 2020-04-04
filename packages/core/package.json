@@ -9,7 +9,8 @@
     "prebuild": "npm run clean",
     "clean": "rm -rf dist",
     "test:type": "tsc --noEmit",
-    "test": "npm run test:type"
+    "test": "npm run test:type",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
