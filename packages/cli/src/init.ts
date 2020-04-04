@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import { copyIfNotExist, writeIfNotExist, run } from './util';
-import { readFileSync, writeFileSync } from 'fs';
+import { writeFileSync } from 'fs';
 
 const CWD = process.cwd();
 
