@@ -1,6 +1,6 @@
 {
   "name": "@preon/example-base",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "a smaller nodejs micro-service framework",
   "private": true,
   "scripts": {
@@ -22,6 +22,6 @@
     "preon": "^0.1.4"
   },
   "devDependencies": {
-    "@preon/cli": "^0.1.4"
+    "@preon/cli": "^0.1.5"
   }
 }
