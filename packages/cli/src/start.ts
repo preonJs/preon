@@ -30,6 +30,9 @@ const BLACK_LIST = [
     /\.log$/,
     /\.log$/,
     /\.lock$/,
+    'package-lock.json',
+    '.editorconfig',
+    '.gitignore',
 ];
 
 const TSNODE = require.resolve('ts-node/dist/bin.js');

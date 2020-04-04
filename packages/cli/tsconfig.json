@@ -5,5 +5,8 @@
     "sourceRoot": "./src",
     "baseUrl": "./src",
     "outDir": "./dist"
-  }
+  },
+  "exclude": [
+    "boilerplate"
+  ]
 }

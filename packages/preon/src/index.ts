@@ -4,6 +4,6 @@ export * from '@preon/core';
 
 export * from './application';
 
-export { default as Application } from './application';
+export { Application };
 
 export default Application;

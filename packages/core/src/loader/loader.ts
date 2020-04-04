@@ -32,6 +32,7 @@ export default class Loader {
     // find framework paths
     private lookPath() {
         const paths: string[] = [
+            path.resolve(this.options.cwd, 'src'),
             path.resolve(this.options.cwd),
         ];
 
