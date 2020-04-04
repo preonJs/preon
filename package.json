@@ -8,8 +8,9 @@
     "example/*"
   ],
   "scripts": {
-    "build": "lerna run build",
+    "build": "lerna run build --stream",
     "clean": "lerna run clean",
+    "test:type": "lerna run test:type --stream",
     "test": "lerna run test"
   },
   "repository": {
@@ -43,9 +44,11 @@
   "devDependencies": {
     "@types/chai": "^4.2.11",
     "@types/debug": "^4.1.5",
+    "@types/glob": "^7.1.1",
     "@types/lodash": "^4.14.149",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.11.0",
-    "@types/uuid": "^7.0.2"
+    "@types/uuid": "^7.0.2",
+    "@types/yargs": "^15.0.4"
   }
 }

@@ -1,4 +1,4 @@
-import { IConfig } from '../index';
+import { IConfig } from '@preon/core';
 
 const config: IConfig = {
 

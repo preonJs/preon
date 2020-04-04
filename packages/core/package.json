@@ -2,12 +2,14 @@
   "name": "@preon/core",
   "version": "0.0.1",
   "description": "core for preon.js",
-  "typings": "src/index.ts",
+  "typings": "dist/index.d.ts",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "prebuild": "npm run clean",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "test:type": "tsc --noEmit",
+    "test": "npm run test:type"
   },
   "repository": {
     "type": "git",

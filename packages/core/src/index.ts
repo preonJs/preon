@@ -1,9 +1,12 @@
 import * as Router from '@koa/router';
 import Application from './application';
-import Controller from './controller';
 
-export * from './typings';
+export * from './typing';
 
-export { Router, Controller, Application };
+export { default as Application } from './application';
+
+export { default as Controller } from './controller';
+
+export { Router };
 
 export default Application;

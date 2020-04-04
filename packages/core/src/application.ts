@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import * as Debug from 'debug';
 import * as path from 'path';
 import mergeOptions from './util/merge-options';
-import { Controllers, IApplicationOptions, IConfig } from './typings';
+import { Controllers, IApplicationOptions, IConfig } from './typing';
 import Loader from './loader/loader';
 import loadConfig from './loader/load-config';
 import accessMiddleware from './middleware/access';

@@ -1,5 +1,5 @@
 import * as Router from '@koa/router';
-import Application from '../index';
+import Application from '../application';
 
 export const prefix = '/_';
 

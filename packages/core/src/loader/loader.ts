@@ -3,7 +3,7 @@ import * as assert from 'assert';
 import * as fs from 'fs';
 import { uniq } from 'lodash';
 import * as globby from 'globby';
-import { IApplicationOptions } from '../typings';
+import { IApplicationOptions } from '../typing';
 import Application, { CORE_DIR } from '../application';
 
 export interface IBaseLoaderOptions extends IApplicationOptions {

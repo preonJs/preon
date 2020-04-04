@@ -2,7 +2,7 @@ import Loader from './loader';
 import Application from '../application';
 import { flatten } from 'lodash';
 import * as path from 'path';
-import { Controllers } from '../typings';
+import { Controllers } from '../typing';
 
 export default function loadController(loader: Loader, app: Application): Controllers {
     const basePaths = loader.paths;

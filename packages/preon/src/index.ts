@@ -1,20 +1,9 @@
-import PreonCore, { IApplicationOptions, IConfig as ICoreConfig } from '@preon/core';
-import System from './controller/system';
+import Application from './application';
 
-export interface IConfig extends ICoreConfig {
+export * from '@preon/core';
 
-}
+export * from './application';
 
-export default class Preon extends PreonCore {
-    public config: IConfig;
+export { default as Application } from './application';
 
-    controller: { System: System };
-
-    constructor(options?: Partial<IApplicationOptions>) {
-        super(options);
-    }
-
-    get path() {
-        return __dirname;
-    }
-}
+export default Application;

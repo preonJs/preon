@@ -20,5 +20,8 @@
   "homepage": "https://github.com/preonJs/preon",
   "dependencies": {
     "preon": "^0.0.1"
+  },
+  "devDependencies": {
+    "@preon/cli": "^0.0.1"
   }
 }
