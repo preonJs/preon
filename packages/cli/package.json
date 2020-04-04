@@ -8,7 +8,7 @@
     "preon": "bin/preon"
   },
   "scripts": {
-    "start": "tsc",
+    "build": "tsc",
     "prebuild": "npm run clean",
     "clean": "rm -rf dist",
     "test:type": "tsc --noEmit",
