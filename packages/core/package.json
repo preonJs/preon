@@ -12,6 +12,16 @@
     "test": "npm run test:type",
     "prepublishOnly": "npm run build"
   },
+  "files": [
+    "src",
+    "dist",
+    "index.js",
+    "index.d.ts",
+    "package.json",
+    "README.md",
+    "package.json",
+    "LICENSE"
+  ],
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
