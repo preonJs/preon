@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "build": "lerna run build --stream",
-    "clean": "lerna run clean",
+    "clean": "lerna run clean --parallel",
     "test:type": "lerna run test:type --stream",
     "test": "lerna run test"
   },
@@ -50,5 +50,8 @@
     "@types/node": "^13.11.0",
     "@types/uuid": "^7.0.2",
     "@types/yargs": "^15.0.4"
+  },
+  "engines": {
+    "node": ">=12"
   }
 }

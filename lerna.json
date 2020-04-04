@@ -2,7 +2,8 @@
   "useWorkspaces": true,
   "command": {
     "run": {
-      "parallel": true
+      "stream": true,
+      "concurrency": 1
     }
   },
   "npmClient": "yarn",
