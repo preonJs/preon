@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/preonJs/preon",
   "dependencies": {
-    "preon": "^0.1.4"
+    "preon": "^0.1.4",
+    "typescript": "^3.8.3"
   },
   "devDependencies": {
     "@preon/cli": "^0.1.5"
