@@ -32,7 +32,8 @@ const BLACK_LIST = [
     /\.lock$/,
     'package-lock.json',
     '.editorconfig',
-    '.gitignore',
+    /\..*ignore$/,
+    'Dockerfile'
 ];
 
 const TSNODE = require.resolve('ts-node/dist/bin.js');
