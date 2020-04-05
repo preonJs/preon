@@ -16,6 +16,8 @@
     "prepublishOnly": "npm run build"
   },
   "files": [
+    "boilerplate",
+    "bin",
     "src",
     "dist",
     "index.js",
