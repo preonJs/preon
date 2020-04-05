@@ -19,7 +19,9 @@ exports.options = {
 } as YArgsOptionsGroup;
 
 exports.builder = (yargs: yargs.Argv) => {
-    return yargs;
+    return yargs.options({
+        ...exports.options,
+    });
 };
 
 exports.handler = (args: yargs.Arguments) => {
