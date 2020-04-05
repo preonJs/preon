@@ -2,6 +2,7 @@ import * as Koa from 'koa';
 import { Context as ExtendContext } from './extend/context';
 import Controller from './controller';
 import * as KoaRouter from '@koa/router';
+import Application from './application';
 
 export interface IApplicationOptions {
     cwd: string;
@@ -15,6 +16,10 @@ export interface IConfig {
 }
 
 export interface Context extends ExtendContext, KoaRouter.RouterParamContext, Koa.Context {
+    readonly requestId: string;
+    readonly traceId: string
+
+    readonly app: Application
 }
 
 export type Controllers<T extends string = string> = {
