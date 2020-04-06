@@ -1,9 +1,5 @@
-import Application from './application';
+import Service from './service';
 
-export default abstract class Controller {
-    protected readonly app: Application;
+export default abstract class Controller extends Service {
 
-    constructor(app: Application) {
-        this.app = app;
-    }
 }

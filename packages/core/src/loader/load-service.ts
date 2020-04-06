@@ -9,12 +9,12 @@ export default function loadController(loader: Loader, app: Application): Contro
 
     const files = flatten(
         basePaths.map((baseDir) => {
-            const currentFiles = loader.lookupFiles('controller', { baseDir });
+            const currentFiles = loader.lookupFiles('service', { baseDir });
 
-            const indexPathJS = path.resolve(baseDir, 'controller/index.js');
-            const indexPathTS = path.resolve(baseDir, 'controller/index.ts');
+            const indexPathJS = path.resolve(baseDir, 'service/index.js');
+            const indexPathTS = path.resolve(baseDir, 'service/index.ts');
 
-            // if controller/index.ts exist, only return it
+            // if service/index.ts exist, only return it
             if (currentFiles.includes(indexPathTS)) {
                 return [indexPathTS];
             }
