@@ -15,6 +15,7 @@ import traceMiddleware from './middleware/trace';
 import Context from './extend/context';
 import loadRouter from './loader/load-router';
 import loadController from './loader/load-controller';
+import loadService from './loader/load-service';
 
 const debug = Debug('preon:core');
 
@@ -59,6 +60,7 @@ export default abstract class Application extends Koa {
         this.config = this.loadConfig();
 
         this.loadMiddleware();
+        this.service = this.loadService();
         this.controller = this.loadController();
         this.loadRouter();
     }
@@ -100,6 +102,10 @@ export default abstract class Application extends Koa {
 
     protected loadController() {
         return loadController(this.loader, this);
+    }
+
+    protected loadService() {
+        return loadService(this.loader, this);
     }
 
     protected async beforeStart() {

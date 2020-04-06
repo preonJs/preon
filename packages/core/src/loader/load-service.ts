@@ -4,7 +4,7 @@ import { flatten } from 'lodash';
 import * as path from 'path';
 import { Controllers } from '../typing';
 
-export default function loadController(loader: Loader, app: Application): Controllers {
+export default function loadService(loader: Loader, app: Application): Controllers {
     const basePaths = loader.paths;
 
     const files = flatten(
