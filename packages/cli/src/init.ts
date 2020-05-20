@@ -104,10 +104,10 @@ export default async function init(options: IInitOptions = {}) {
         packageJson.scripts.start = 'preon start';
     }
     if (!packageJson.scripts.build) {
-        packageJson.scripts.build = 'tsx';
+        packageJson.scripts.build = 'tsc';
     }
     if (!packageJson.scripts['test:type']) {
-        packageJson.scripts['test:type'] = 'tsx --noEmit';
+        packageJson.scripts['test:type'] = 'tsc --noEmit';
     }
     if (!packageJson.scripts.test) {
         packageJson.scripts.test = 'npm run test:type';
@@ -131,5 +131,7 @@ export default async function init(options: IInitOptions = {}) {
     const installCmd = npmClient === 'yarn' ? 'add' : 'install';
 
     run(`${npmClient} ${installCmd} preon --save`);
-    run(`${npmClient} ${installCmd} @preon/cli typescript ${extendPath ? '' : '@types/node'} --save-dev`);
+    run(`${npmClient} ${installCmd} @preon/cli typescript ${extendPath ? '' : '@types/node'} ${npmClient === 'yarn' ?
+        '--dev' :
+        '--save-dev'}`);
 }
