@@ -1,6 +1,5 @@
 {
   "name": "preon",
-  "version": "0.0.1",
   "description": "a smaller nodejs micro-service framework",
   "private": true,
   "workspaces": [

@@ -131,7 +131,7 @@ export default async function init(options: IInitOptions = {}) {
     const installCmd = npmClient === 'yarn' ? 'add' : 'install';
 
     run(`${npmClient} ${installCmd} preon --save`);
-    run(`${npmClient} ${installCmd} @preon/cli typescript ${extendPath ? '' : '@types/node'} ${npmClient === 'yarn' ?
+    run(`${npmClient} ${installCmd} @preon/cli typescript@3.8.3 ${extendPath ? '' : '@types/node'} ${npmClient === 'yarn' ?
         '--dev' :
         '--save-dev'}`);
 }
