@@ -1,5 +1,6 @@
 import { Middleware } from 'koa';
 import * as Debug from 'debug';
+import * as Stream from 'stream';
 
 const debug = {
     response: Debug('app:response'),
@@ -13,13 +14,19 @@ const responseMiddleware: Middleware = async function response(ctx, next) {
         const { body, status, raw } = ctx;
 
         if (!body && raw) {
-            if (typeof raw === 'object') {
+            if (typeof raw === 'object' && !ctx.response.type && !(raw instanceof Buffer) && !(raw instanceof Stream)) {
                 ctx.response.type = 'json';
                 ctx.body = JSON.stringify(raw);
                 return;
             }
             ctx.body = raw;
 
+            debug.response(ctx.requestId, ctx.status, ctx.body);
+
+            return;
+        }
+
+        if (ctx.response.type || body instanceof Buffer || body instanceof Stream) {
             debug.response(ctx.requestId, ctx.status, ctx.body);
 
             return;
@@ -64,7 +71,9 @@ const responseMiddleware: Middleware = async function response(ctx, next) {
             res.stack = e.stack;
         }
 
-        const status = res.code ? (res.code >= 400 && res.code < 600 ? res.code : 500) : (e instanceof Error ? 500 : ctx.status);
+        const status = res.code ?
+            (res.code >= 400 && res.code < 600 ? res.code : 500) :
+            (e instanceof Error ? 500 : ctx.status);
 
         ctx.response.type = 'json';
 
