@@ -26,7 +26,7 @@ const responseMiddleware: Middleware = async function response(ctx, next) {
             return;
         }
 
-        if (ctx.response.type || body instanceof Buffer || body instanceof Stream) {
+        if (body instanceof Buffer || body instanceof Stream) {
             debug.response(ctx.requestId, ctx.status, ctx.body);
 
             return;
