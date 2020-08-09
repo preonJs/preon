@@ -2375,6 +2375,13 @@ eventemitter3@^3.1.0:
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
   integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
 
+exception.js@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/exception.js/-/exception.js-0.1.1.tgz#fc5b5730aeb7c1faef69be6567cac891de39528d"
+  integrity sha512-qomc/hcpTgg/3ww4dRShTRmwM6sifeo63jG5HWhym7doA9dfftOf1nnpZZnH8KhrlWFBPOzxZ31vxNmCb+SeOQ==
+  dependencies:
+    http-status "^1.3.2"
+
 execa@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/execa/-/execa-1.0.0.tgz#c6236a5bb4df6d6f15e88e7f017798216749ddd8"
@@ -2986,6 +2993,11 @@ http-signature@~1.2.0:
     assert-plus "^1.0.0"
     jsprim "^1.2.2"
     sshpk "^1.7.0"
+
+http-status@^1.3.2:
+  version "1.4.2"
+  resolved "https://registry.npmjs.org/http-status/-/http-status-1.4.2.tgz#75406e829dca9bfdf92972c579b47cd6a58ab6c8"
+  integrity sha512-mBnIohUwRw9NyXMEMMv8/GANnzEYUj0Y8d3uL01zDWFkxUjYyZ6rgCaAI2zZ1Wb34Oqtbx/nFZolPRDc8Xlm5A==
 
 https-proxy-agent@^2.2.3:
   version "2.2.4"

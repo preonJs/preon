@@ -49,6 +49,7 @@
   },
   "homepage": "https://github.com/preonJs/preon",
   "dependencies": {
-    "@preon/core": "^0.1.15"
+    "@preon/core": "^0.1.15",
+    "exception.js": "^0.1.1"
   }
 }

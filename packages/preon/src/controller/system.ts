@@ -1,4 +1,5 @@
 import { Controller, Context } from '@preon/core';
+import * as Errors from 'exception.js';
 
 export default class System_ extends Controller {
     async test(ctx: Context) {
@@ -9,7 +10,7 @@ export default class System_ extends Controller {
         ctx.json = require('../../package.json');
     }
 
-    async exception(ctx: Context) {
-        throw new ctx.Errors.ServiceUnavailable();
+    async exception() {
+        throw new Errors.ServiceUnavailable();
     }
 }
