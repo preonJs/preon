@@ -4,6 +4,7 @@ import * as assert from 'assert';
 import * as fs from 'fs';
 import * as Debug from 'debug';
 import * as path from 'path';
+import * as http from 'http';
 import mergeOptions from './util/merge-options';
 import { Controllers, Services, IApplicationOptions, IConfig } from './typing';
 import Loader from './loader/loader';
@@ -116,13 +117,33 @@ export default abstract class Application extends Koa {
 
     }
 
-    public async start() {
+    public async start(): Promise<http.Server> {
         await this.beforeStart();
 
-        this.listen({ port: this.port }, () => {
-            debug(`[START] Server start listening at ${this.port}`);
+        const server = http.createServer(this.callback());
 
-            this.afterStart();
+        return new Promise((resolve, reject) => {
+            let returned = false;
+
+            server.once('error', (error) => {
+                if (!returned) {
+                    reject(error);
+                    returned = true;
+                }
+            });
+
+            server.listen({
+                port: this.port,
+            }, ()=> {
+                debug(`[START] Server start listening at ${this.port}`);
+
+                this.afterStart();
+
+                if(!returned) {
+                    resolve(server);
+                    returned = true;
+                }
+            });
         });
     }
 }
