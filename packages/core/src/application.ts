@@ -33,6 +33,8 @@ export default abstract class Application extends Koa {
 
     private readonly loader: Loader;
 
+    public readonly server: http.Server;
+
     constructor(options: Partial<IApplicationOptions> = {}) {
         super();
 
@@ -64,6 +66,8 @@ export default abstract class Application extends Koa {
         this.service = this.loadService();
         this.controller = this.loadController();
         this.loadRouter();
+
+        this.server = http.createServer(this.callback());
     }
 
     get path() {
@@ -120,7 +124,7 @@ export default abstract class Application extends Koa {
     public async start(): Promise<http.Server> {
         await this.beforeStart();
 
-        const server = http.createServer(this.callback());
+        const server = this.server;
 
         return new Promise((resolve, reject) => {
             let returned = false;
@@ -134,14 +138,26 @@ export default abstract class Application extends Koa {
 
             server.listen({
                 port: this.port,
-            }, ()=> {
+            }, () => {
                 debug(`[START] Server start listening at ${this.port}`);
 
                 this.afterStart();
 
-                if(!returned) {
+                if (!returned) {
                     resolve(server);
                     returned = true;
+                }
+            });
+        });
+    }
+
+    public async close() {
+        return new Promise((resolve, reject) => {
+            this.server.close((error) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve();
                 }
             });
         });
