@@ -8,8 +8,8 @@ const CWD = process.cwd();
 const BOILERPLATE_ROOT = path.resolve(__dirname, '../boilerplate');
 
 export interface IInitOptions {
-    npmClient?: 'npm' | 'yarn' | 'tnpm' | string
-    extends?: string
+    npmClient?: 'npm' | 'yarn' | 'tnpm' | string;
+    extends?: string;
 }
 
 const baseTsConfig = {
@@ -45,6 +45,9 @@ const baseTsConfig = {
         'typeRoots': [
             'node_modules/@types',
         ],
+        'sourceRoot': './src',
+        'baseUrl': './src',
+        'outDir': './dist',
     },
 };
 
@@ -83,7 +86,10 @@ export default async function init(options: IInitOptions = {}) {
     copyIfNotExist(path.resolve(BOILERPLATE_ROOT, 'src/index.ts'), path.resolve(CWD, 'src/index.ts'));
     copyIfNotExist(path.resolve(BOILERPLATE_ROOT, 'src/application.ts'), path.resolve(CWD, 'src/application.ts'));
     copyIfNotExist(path.resolve(BOILERPLATE_ROOT, 'src/router/system.ts'), path.resolve(CWD, 'src/router/system.ts'));
-    copyIfNotExist(path.resolve(BOILERPLATE_ROOT, 'src/controller/system.ts'), path.resolve(CWD, 'src/controller/system.ts'));
+    copyIfNotExist(
+        path.resolve(BOILERPLATE_ROOT, 'src/controller/system.ts'),
+        path.resolve(CWD, 'src/controller/system.ts'),
+    );
 
     if (!extendPath) {
         copyIfNotExist(path.resolve(BOILERPLATE_ROOT, 'editorconfig'), path.resolve(CWD, '.editorconfig'));
@@ -131,7 +137,7 @@ export default async function init(options: IInitOptions = {}) {
     const installCmd = npmClient === 'yarn' ? 'add' : 'install';
 
     run(`${npmClient} ${installCmd} preon --save`);
-    run(`${npmClient} ${installCmd} @preon/cli typescript@3.8.3 ${extendPath ? '' : '@types/node'} ${npmClient === 'yarn' ?
+    run(`${npmClient} ${installCmd} @preon/cli typescript ${extendPath ? '' : '@types/node'} ${npmClient === 'yarn' ?
         '--dev' :
         '--save-dev'}`);
 }
