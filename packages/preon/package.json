@@ -48,6 +48,9 @@
     "url": "https://github.com/preonJs/preon/issues"
   },
   "homepage": "https://github.com/preonJs/preon",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "dependencies": {
     "@preon/core": "^1.0.0-alpha.0",
     "exception.js": "^1.0.2"

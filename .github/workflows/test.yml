@@ -16,8 +16,8 @@ jobs:
                     - windows-latest
                     - macos-latest
                 node:
-                    - 12
-                    - 13
+                    - 14
+                    - 16
         runs-on: ${{matrix.os}}
         steps:
             -   uses: actions/checkout@v2
