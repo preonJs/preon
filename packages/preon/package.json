@@ -1,6 +1,6 @@
 {
   "name": "preon",
-  "version": "0.2.2",
+  "version": "1.0.0-alpha.0",
   "description": "a smaller nodejs micro-service framework",
   "main": "index.js",
   "typings": "index.d.ts",
@@ -49,7 +49,7 @@
   },
   "homepage": "https://github.com/preonJs/preon",
   "dependencies": {
-    "@preon/core": "^0.2.2",
+    "@preon/core": "^1.0.0-alpha.0",
     "exception.js": "^1.0.2"
   }
 }
