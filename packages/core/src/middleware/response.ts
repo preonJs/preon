@@ -26,7 +26,8 @@ const logResponse = (ctx: Context, data?: any, error?: Error) => {
 
     if (data.code >= 400) {
         debug.error(
-            `[RESPONSE] code: ${data.code} subcode: ${data.subcode} error: ${data.error} message: ${data.message} ${error?.toString()}`,
+            `[RESPONSE] code: ${data.code} subcode: ${data.subcode} error: ${data.error} message: ${data.message}`,
+            error,
         );
     } else {
         debug.error(`[RESPONSE] code: ${data.code} subcode: ${data.subcode}`);
@@ -46,6 +47,7 @@ const renderError = (ctx: Context, error: Exception) => {
             <style>
                 body {
                     width: 35em;
+                    max-width: 90%;
                     margin: 0 auto;
                     font-family: Tahoma, Verdana, Arial, sans-serif;
                 }
@@ -56,10 +58,9 @@ const renderError = (ctx: Context, error: Exception) => {
                     font-size: 12px;
                     background-color: rgb(245, 245, 245);
                     padding: 24px;
-                    margin: 0 auto;
-                    max-width: calc(100% - 48px);
                     overflow: auto;
-                    display: inline-block;
+                    display: block;
+                    width: 100%;
                 }
             </style>
         </head>
@@ -89,7 +90,7 @@ const responseMiddleware: Middleware = async function response(ctx, next) {
 
         const originBody = ctx.body;
 
-        if (Buffer.isBuffer(originBody) || isStream(originBody)) {
+        if (originBody === null || Buffer.isBuffer(originBody) || isStream(originBody)) {
             logResponse(ctx);
 
             return;

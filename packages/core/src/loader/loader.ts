@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as assert from 'assert';
 import * as fs from 'fs';
-import { uniq } from 'lodash';
+import { reverse, uniq } from 'lodash';
 import * as fastGlob from 'fast-glob';
 import { ApplicationOptions } from '../typings';
 import Application, { CORE_DIR } from '../application';
@@ -57,7 +57,7 @@ export default class Loader {
 
         paths.push(CORE_DIR);
 
-        return uniq(paths);
+        return reverse(uniq(paths));
     }
 
     // get all files in the directory
