@@ -1,7 +1,5 @@
-import { Controller, Context } from 'preon';
+import { Middleware } from 'preon';
 
-export default class System extends Controller {
-    async version(ctx: Context) {
-        ctx.json = require('../../package.json');
-    }
-}
+export const version: Middleware = async (ctx) => {
+    ctx.version = require('../../package.json').version;
+};

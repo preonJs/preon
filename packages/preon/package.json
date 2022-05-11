@@ -50,6 +50,6 @@
   "homepage": "https://github.com/preonJs/preon",
   "dependencies": {
     "@preon/core": "^0.2.2",
-    "exception.js": "^0.1.1"
+    "exception.js": "^1.0.2"
   }
 }

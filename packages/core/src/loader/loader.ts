@@ -2,16 +2,16 @@ import * as path from 'path';
 import * as assert from 'assert';
 import * as fs from 'fs';
 import { uniq } from 'lodash';
-import * as globby from 'globby';
-import { IApplicationOptions } from '../typing';
+import * as fastGlob from 'fast-glob';
+import { ApplicationOptions } from '../typings';
 import Application, { CORE_DIR } from '../application';
 
-export interface IBaseLoaderOptions extends IApplicationOptions {
+export interface IBaseLoaderOptions extends ApplicationOptions {
 }
 
 interface ILookupOptions {
-    patterns?: string | string[]
-    baseDir?: string | string[]
+    patterns?: string | string[];
+    baseDir?: string | string[];
 }
 
 export default class Loader {
@@ -62,25 +62,20 @@ export default class Loader {
 
     // get all files in the directory
     public lookupFiles(dir: string = '', {
-        patterns = [
-            '*.ts',
-            '!*.d.ts',
-            '*.js',
-        ],
+        patterns = ['**/*.{ts,js}'],
         baseDir = this.paths,
     }: ILookupOptions = {}) {
         const files: string[] = [];
-
-        patterns = Array.isArray(patterns) ? patterns : patterns;
 
         const baseDirs = Array.isArray(baseDir) ? baseDir : [baseDir];
 
         for (const basePath of baseDirs) {
             const realPath = path.resolve(basePath, dir);
 
-            const res = globby.sync(patterns, {
+            const res = fastGlob.sync(patterns, {
                 cwd: realPath,
                 absolute: true,
+                ignore: ['*.d.ts'],
             });
 
             files.push(...res);

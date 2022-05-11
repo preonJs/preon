@@ -1,12 +1,4 @@
-import { Router } from '@preon/core';
-import Application from '../application';
+import { router } from 'preon';
+import * as System from '../controller/system';
 
-export const prefix = '/_';
-
-const creatrRouter = (router: Router, app: Application) => {
-    router.get('/version', app.controller.System.version);
-
-    return router;
-};
-
-export default creatrRouter;
+router.get('/_/version', System.version);

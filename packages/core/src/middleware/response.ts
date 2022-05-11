@@ -1,87 +1,193 @@
-import { Middleware } from 'koa';
 import * as Debug from 'debug';
 import * as Stream from 'stream';
+import * as Status from 'http-status';
+import { Context, Middleware } from '../typings';
+import { camelCase, upperFirst } from 'lodash';
+import Exception from 'exception.js';
 
 const debug = {
+    request: Debug('app:request'),
     response: Debug('app:response'),
     error: Debug('app:response:exception'),
 };
 
+const isStream = (stream: unknown): stream is Stream => {
+    return stream !== null
+        && typeof stream === 'object'
+        && typeof (stream as Stream).pipe === 'function';
+};
+
+const logResponse = (ctx: Context, data?: any, error?: Error) => {
+    if (!data) {
+        debug.response(`[RESPONSE] status: ${ctx.status} type: ${ctx.type}`);
+
+        return;
+    }
+
+    if (data.code >= 400) {
+        debug.error(
+            `[RESPONSE] code: ${data.code} subcode: ${data.subcode} error: ${data.error} message: ${data.message} ${error?.toString()}`,
+        );
+    } else {
+        debug.error(`[RESPONSE] code: ${data.code} subcode: ${data.subcode}`);
+    }
+};
+
+const responseMore = process.env.NODE_ENV !== 'production';
+
+const renderError = (ctx: Context, error: Exception) => {
+    ctx.body = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>${error.name || 'Error'}</title>
+            <style>
+                body {
+                    width: 35em;
+                    margin: 0 auto;
+                    font-family: Tahoma, Verdana, Arial, sans-serif;
+                }
+
+                pre {
+                    font-family: "Roboto", Arial, sans-serif;
+                    text-align: left;
+                    font-size: 12px;
+                    background-color: rgb(245, 245, 245);
+                    padding: 24px;
+                    margin: 0 auto;
+                    max-width: calc(100% - 48px);
+                    overflow: auto;
+                    display: inline-block;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>${error.code}${error.subcode ? `(${error.subcode})` : ''}: ${error.name || 'Error'}</h1>
+            <p>${error.message}</p>
+            ${error.meta ? `<p>Meta:</p><pre>${JSON.stringify(error.meta, ' ' as any, 4)}</pre>` : ''}
+            ${error.stack ? `<p>Stack:</p><pre>${error.stack}</pre>` : ''}
+        </body>
+    `;
+};
+
 const responseMiddleware: Middleware = async function response(ctx, next) {
+    debug.request(`[${ctx.method}] ${ctx.requestId} ${ctx.traceId} ${ctx.originalUrl}`);
+
     try {
         await next();
 
-        const { body, status, raw } = ctx;
+        const { rawBody } = ctx;
 
-        if (!body && raw) {
-            if (typeof raw === 'object' && !ctx.response.type && !(raw instanceof Buffer) && !(raw instanceof Stream)) {
-                ctx.response.type = 'json';
-                ctx.body = JSON.stringify(raw);
-                return;
-            }
-            ctx.body = raw;
-
-            debug.response(ctx.requestId, ctx.status, ctx.body);
+        // including 404
+        if (rawBody || rawBody === null) {
+            ctx.body = rawBody;
 
             return;
         }
 
-        if (body instanceof Buffer || body instanceof Stream) {
-            debug.response(ctx.requestId, ctx.status, ctx.body);
+        const originBody = ctx.body;
+
+        if (Buffer.isBuffer(originBody) || isStream(originBody)) {
+            logResponse(ctx);
 
             return;
         }
 
-        switch (ctx.accepts('*', 'text', 'json', 'html')) {
-            case '*':
-            case 'html':
-            case 'text':
-            case 'json': {
-                const res: any = {
-                    code: status,
-                    data: null,
-                    message: ctx.message,
-                    requestId: ctx.requestId,
-                };
-
-                if (status === 200) {
-                    res.data = body;
-                }
-                ctx.response.type = 'json';
-                ctx.body = JSON.stringify(res);
-
-                debug.response(ctx.requestId, ctx.status, ctx.body);
-                return;
-            }
-            default: {
-                debug.response(ctx.requestId, ctx.status, ctx.body);
-                return;
-            }
-        }
-    } catch (e) {
-        const res: any = {
-            code: e.code || e.statusCode || 500,
-            data: null,
-            name: e.name,
-            message: e.message,
-            requestId: ctx.requestId,
+        const data: any = {
+            code: ctx.status,
+            subcode: 0,
+            message: 'ok',
+            data: originBody,
         };
 
-        if (process.env.NODE_ENV !== 'production') {
-            res.stack = e.stack;
+        if (ctx.status >= 400) {
+            const message = Status[ctx.status] as string;
+            data.message = message;
+            data.error = message ? upperFirst(camelCase(message)) : undefined;
         }
 
-        const status = res.code ?
-            (res.code >= 400 && res.code < 600 ? res.code : 500) :
-            (e instanceof Error ? 500 : ctx.status);
+        if (ctx.isApiRequest) {
+            ctx.type = 'json';
+            ctx.body = JSON.stringify(data);
 
-        ctx.response.type = 'json';
+            logResponse(ctx, data);
 
-        ctx.body = JSON.stringify(res);
+            return;
+        }
 
-        ctx.status = status;
+        if (ctx.status >= 400) {
+            const error = new Exception(data.message, {} as any);
+            error.code = data.code;
+            error.subcode = data.subcode;
+            data.error && (error.name = data.error);
+            data.data && (error.meta.data = data.data);
 
-        debug.error(ctx.requestId, ctx.status, ctx.body, e);
+            if (!responseMore) {
+                error.stack = undefined;
+            }
+
+            await renderError(ctx, error);
+
+            logResponse(ctx, data, error);
+
+            return;
+        }
+
+        if (typeof originBody === 'number') {
+            ctx.body = JSON.stringify(originBody);
+        }
+
+        logResponse(ctx, data);
+    } catch (error: Error | string | any) {
+        let code = error?.code || 500;
+        let subcode = error?.subcode || 0;
+
+        const originBody = ctx.body;
+
+        if (code > 599 || code < 100) {
+            code = 500;
+            subcode = code;
+        }
+
+        const body: any = {
+            code,
+            subcode,
+            message: error?.message || '',
+            error: error?.name || '',
+            data: originBody,
+        };
+
+        if (responseMore) {
+            body.stack = error?.stack || '';
+        }
+
+        if (error.meta) {
+            body.meta = error.meta;
+        }
+
+        if (ctx.isApiRequest) {
+            ctx.type = 'json';
+            ctx.body = JSON.stringify(body);
+
+            logResponse(ctx, body, error);
+
+            return;
+        }
+
+        error.subcode = subcode;
+        error.meta = error.meta || {};
+        if (body.data) {
+            error.meta.data = body.data;
+        }
+        if (!responseMore) {
+            error.stack = undefined;
+        }
+
+        logResponse(ctx, body, error);
+
+        return renderError(ctx, error);
     }
 };
 

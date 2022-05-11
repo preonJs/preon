@@ -1,6 +1,6 @@
-import { IConfig } from '@preon/core';
+import { type ApplicationConfig } from '@preon/core';
 
-const config: IConfig = {
+const config: ApplicationConfig = {
 
 };
 

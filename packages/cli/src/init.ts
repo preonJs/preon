@@ -39,6 +39,7 @@ const baseTsConfig = {
         'removeComments': false,
         'resolveJsonModule': true,
         'sourceMap': true,
+        'strict': true,
         'skipLibCheck': true,
         'strictNullChecks': true,
         'target': 'es2019',

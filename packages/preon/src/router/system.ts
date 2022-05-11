@@ -1,12 +1,12 @@
-import * as Router from '@koa/router';
-import { Application} from '../application';
+import { Router } from '@preon/core';
+import * as System from '../controller/system';
 
-export const prefix = '/_';
+const router = new Router({
+    prefix: '/_',
+});
 
-export default function (router: Router, { controller }: Application) {
-    router.all('/', controller.System_.test);
+router.all('/', System.test);
 
-    router.get('/system', controller.System_.system);
+router.get('/system', System.system);
 
-    router.get('/exception', controller.System_.exception);
-}
+router.get('/exception', System.exception);

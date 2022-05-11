@@ -1,12 +1,11 @@
-import PreonCore, { IApplicationOptions } from '@preon/core';
-import System from './controller/system';
+import PreonCore, { ApplicationOptions } from '@preon/core';
 
 export interface Application extends Preon {
-    controller: { System_: System };
+
 }
 
 export default class Preon extends PreonCore {
-    constructor(options?: Partial<IApplicationOptions>) {
+    constructor(options?: Partial<ApplicationOptions>) {
         super(options);
     }
 

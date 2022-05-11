@@ -6,36 +6,29 @@ import * as Debug from 'debug';
 import * as path from 'path';
 import * as http from 'http';
 import mergeOptions from './util/merge-options';
-import { Controllers, Services, IApplicationOptions, IConfig } from './typing';
+import { ApplicationOptions, ApplicationConfig } from './typings';
 import Loader from './loader/loader';
 import loadConfig from './loader/load-config';
 import accessMiddleware from './middleware/access';
-import accessLogMiddleware from './middleware/access-log';
 import responseMiddleware from './middleware/response';
 import traceMiddleware from './middleware/trace';
 import Context from './extend/context';
 import loadRouter from './loader/load-router';
-import loadController from './loader/load-controller';
-import loadService from './loader/load-service';
 
 const debug = Debug('preon:core');
 
 export const CORE_DIR = path.resolve(__dirname);
 
 export default abstract class Application extends Koa {
-    public controller: Controllers;
+    private readonly options: ApplicationOptions;
 
-    public service: Services;
-
-    private readonly options: IApplicationOptions;
-
-    public readonly config: IConfig;
+    public readonly config: ApplicationConfig;
 
     private readonly loader: Loader;
 
     public readonly server: http.Server;
 
-    constructor(options: Partial<IApplicationOptions> = {}) {
+    constructor(options: Partial<ApplicationOptions> = {}) {
         super();
 
         assert(Object.getPrototypeOf(this) !== Application.prototype, `Can not create instance of @preon/core directly, you can create framework extends @preon/core or use \`preon\``);
@@ -63,8 +56,6 @@ export default abstract class Application extends Koa {
         this.config = this.loadConfig();
 
         this.loadMiddleware();
-        this.service = this.loadService();
-        this.controller = this.loadController();
         this.loadRouter();
 
         this.server = http.createServer(this.callback());
@@ -97,20 +88,11 @@ export default abstract class Application extends Koa {
         this.use(accessMiddleware);
         this.use(KoaBody());
         this.use(traceMiddleware);
-        this.use(accessLogMiddleware);
         this.use(responseMiddleware);
     }
 
     protected loadRouter() {
         return loadRouter(this.loader, this);
-    }
-
-    protected loadController() {
-        return loadController(this.loader, this);
-    }
-
-    protected loadService() {
-        return loadService(this.loader, this);
     }
 
     protected async beforeStart() {
@@ -152,7 +134,7 @@ export default abstract class Application extends Koa {
     }
 
     public async close() {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             this.server.close((error) => {
                 if (error) {
                     reject(error);

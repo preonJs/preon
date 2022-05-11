@@ -7,7 +7,7 @@ import { debounce } from 'lodash';
 export default class Runner extends EventEmitter {
     protected running = false;
 
-    protected child: ChildProcess;
+    protected child!: ChildProcess;
 
     constructor(
         protected readonly command: string,

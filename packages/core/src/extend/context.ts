@@ -1,22 +1,24 @@
-export interface Context {
-    raw: any;
-    json: any;
-    readonly data?: any;
-    readonly rawData: any;
+import * as Stream from 'stream';
+import { Context } from '../typings';
+
+export interface ExtendedContext {
+    rawBody?: string | Buffer | Stream | ArrayBuffer;
+
+    readonly isApiRequest: boolean;
 }
 
-export default {
-    set json(data: any) {
-        this.response.type = 'json';
-        this.raw = JSON.stringify(data);
-        this.status = 200;
-    },
+const context: Context = {
+    get isApiRequest() {
+        if (this.path.includes('/api/')) {
+            return true;
+        }
 
-    get data() {
-        return this.request.body;
-    },
+        if (this.path.endsWith('.json')) {
+            return true;
+        }
 
-    get rawData() {
-        return this.request.rawData;
+        return !(this.accepts('html') && !this.accepts('*'));
     },
-} as Context;
+} as any;
+
+export default context;

@@ -42,8 +42,8 @@ commands.forEach((command: string) => {
 
 const argv = yargs.argv;
 
-if (argv && argv._) {
-    const cmd = argv._[0];
+if ('_' in argv && argv._) {
+    const cmd = String(argv._[0]);
     if (!commands.includes(cmd)) {
         yargs.showHelp();
     }
