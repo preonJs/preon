@@ -18,7 +18,7 @@ const CWD = process.cwd();
 const BLACK_LIST = [
     /\.\w+rc.*$/,
     /\.(idea|git|vscode)/,
-    /(logs|run|typings|script|dist)\//,
+    /(logs|run|typings?|script|dist)/,
     /\.(md|js|d\.ts|map|log|lock|pid)$/,
     /test/,
     /\..*ignore$/,
