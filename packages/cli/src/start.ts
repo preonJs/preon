@@ -16,7 +16,7 @@ export interface IStartOptions {
 const CWD = process.cwd();
 
 const BLACK_LIST = [
-    /rc(\.\w+)$/,
+    /\.\w+rc.*$/,
     /\.(idea|git|vscode)/,
     /(logs|run|typings|script|dist)\//,
     /\.(md|js|d\.ts|map|log|lock|pid)$/,
