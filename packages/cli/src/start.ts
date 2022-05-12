@@ -16,23 +16,19 @@ export interface IStartOptions {
 const CWD = process.cwd();
 
 const BLACK_LIST = [
-    'logs',
+    /rc(\.\w+)$/,
+    /\.(idea|git|vscode)/,
+    /(logs|run|typings|script|dist)\//,
+    /\.(md|js|d\.ts|map|log|lock|pid)$/,
+    /test/,
+    /\..*ignore$/,
+    /tsconfig.*\.json$/,
     'tsconfig.json',
     'package.json',
-    'typings',
-    'script',
-    'test',
-    'dist',
-    /\.md$/,
-    /\.js$/,
-    /\.d\.ts$/,
-    /\.map$/,
-    /\.log$/,
-    /\.log$/,
-    /\.lock$/,
+    'lerna.json',
+    'LICENSE',
     'package-lock.json',
     '.editorconfig',
-    /\..*ignore$/,
     'Dockerfile'
 ];
 
