@@ -147,9 +147,20 @@ const responseMiddleware: Middleware = async function response(ctx, next) {
 
         const originBody = ctx.body;
 
+        if(typeof code !== 'number') {
+            const c = Number(code);
+
+            if(Number.isNaN(c)) {
+                subcode = code;
+                code = 500;
+            } else {
+                code = c;
+            }
+        }
+
         if (code > 599 || code < 100) {
-            code = 500;
             subcode = code;
+            code = 500;
         }
 
         const body: any = {
